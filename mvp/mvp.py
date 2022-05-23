@@ -95,11 +95,13 @@ def main():
     # Load Model & Predict
     model = joblib.load(PATH_FILES + MODEL)
     y_hat = model.predict(df[features_set1])
+    y_hat_proba = model.predict_proba(df[features_set1])
 
     # Save Predictions
     df['y_hat'] = y_hat
+    df['y_hat_proba'] = y_hat_proba[:,1]
     df.reset_index(drop=False, inplace=True)
-    df[['Cartão', 'Data', 'y_hat']].to_csv(DATE + "_outputs.csv", sep=',', index=False)
+    df[['Cartão', 'Data', 'y_hat', 'y_hat_proba']].to_csv(DATE + "_outputs.csv", sep=',', index=False)
     
     print("Done!")
         
